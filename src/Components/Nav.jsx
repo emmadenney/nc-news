@@ -1,9 +1,15 @@
+import { Link } from "react-router-dom";
+
 function Nav() {
   return (
     <nav className="nav">
-      <button className="nav-button">Home</button>
+      <Link to="/">
+        <button className="nav-button">Home</button>
+      </Link>
       <button className="nav-button">Users</button>
-      <button className="nav-button">Articles</button>
+      <Link to="/articles">
+        <button className="nav-button">Articles</button>
+      </Link>
     </nav>
   );
 }
