@@ -44,3 +44,4 @@ export const postComment = (article_id, commentBody) => {
       return response.data.comment;
     });
 };
+
