@@ -31,18 +31,15 @@ function CommentAdder({ article_id, loggedInUser, setComments }) {
       });
   };
 
-  const handleClick = () => {};
-
   return (
     <form className="post-comment-form" onSubmit={handleSubmit}>
-      <input
+      <textarea
         id="addComment"
-        type="text"
         placeholder="Write a comment..."
         value={newComment}
         onChange={handleChange}
         required
-      ></input>
+      ></textarea>
       {err ? <p>{err}</p> : null}
       {postSuccess ? <p>Comment posted successfully!</p> : null}
       <button type="submit" disabled={disabledStatus}>
