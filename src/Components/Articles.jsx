@@ -12,10 +12,14 @@ function Articles() {
       setArticles(articlesData);
       setIsLoading(false);
     });
-  }, [articles]);
+  }, []);
+
+  if (isLoading) {
+    return <p>Loading articles...</p>;
+  }
 
   return (
-    <>
+    <section>
       <h2>Top Rated Articles</h2>
       <ul className="article-list">
         {articles.map((article) => {
@@ -26,7 +30,7 @@ function Articles() {
           );
         })}
       </ul>
-    </>
+    </section>
   );
 }
 
