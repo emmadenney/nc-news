@@ -24,12 +24,12 @@ function SingleArticle() {
   }
 
   return (
-    <article>
+    <article className="article-page">
       <h2>{article.title}</h2>
       <p id="by_line">
         by <Link>{article.author}</Link>
       </p>
-      <p>Topic: {article.topic}</p>
+      <p id="topic">Topic: {article.topic}</p>
       <img
         src={article.article_img_url}
         className="img_single_article"

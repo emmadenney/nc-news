@@ -14,7 +14,7 @@
 } */
 
 .App-header {
-  background-color: #58585a;
+  background-color: #85c1c3;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -41,12 +41,6 @@
   padding: 20px;
 }
 
-.nav-button {
-  padding: 5px;
-  margin: 5px;
-  border-radius: 40px;
-}
-
 #loggedUser {
   font-size:small
 }
@@ -71,21 +65,47 @@
 }
 
 .preview-img {
-  max-width: 100%;
+  max-width: 80%;
 }
 
+.article-page{
+  background-color: #f5f8f4;
+  padding: 20px;
+  text-align: justify;
+  color: #36506f;
+}
+
+/* #topic {
+  text-align: right;
+} */
+
 .img_single_article {
-  max-width: 300px;
+  max-width: 100%;
 }
 
 .comment-list {
   border:solid;
   list-style-type: none;
-  padding: 0;
+  padding: 5px;
+  background-color: rgb(255, 255, 255);
+  text-align: left;
+  margin: 10px;
+}
+
+#comments-header {
+  text-align: center;
 }
 
 .comment {
   border:solid;
-  padding: 5px;
+  padding: 15px;
   margin: 5px;
+}
+
+button {
+  background-color: #85c1c3;
+  border-radius: 50px;
+  padding: 8px;
+  margin: 5px;
+  border-style: none;
 }
