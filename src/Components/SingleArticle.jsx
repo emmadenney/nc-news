@@ -1,20 +1,21 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getArticleById } from "../api";
+import { getArticleById, patchArticleVotes } from "../api";
 import { Link } from "react-router-dom";
 import CommentAdder from "./CommentAdder";
 import CommentList from "./CommentList";
+import Likes from "./Likes";
 
 function SingleArticle() {
   const { article_id } = useParams();
 
-  const [article, setArticle] = useState({});
+  const [articleData, setArticleData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setIsLoading(true);
-    getArticleById(article_id).then((articleData) => {
-      setArticle(articleData);
+    getArticleById(article_id).then((article) => {
+      setArticleData(article);
       setIsLoading(false);
     });
   }, [article_id]);
@@ -25,18 +26,19 @@ function SingleArticle() {
 
   return (
     <article className="article-page">
-      <h2>{article.title}</h2>
-      <p id="by_line">
-        by <Link>{article.author}</Link>
+      <h2>{articleData.title}</h2>
+      <p id="by-line">
+        by <Link>{articleData.author}</Link>
       </p>
-      <p id="topic">Topic: {article.topic}</p>
+      <Likes articleData={articleData} setArticleData={setArticleData} />
+      <p id="topic">Topic: {articleData.topic}</p>
       <img
-        src={article.article_img_url}
+        src={articleData.article_img_url}
         className="img_single_article"
-        alt={article.title}
+        alt={articleData.title}
       ></img>
-      <p>{article.body}</p>
-      <p>Created at {article.created_at}</p>
+      <p id="body-text">{articleData.body}</p>
+      <p id="topic">Created at {articleData.created_at}</p>
       <CommentAdder />
       <CommentList article_id={article_id} />
     </article>
