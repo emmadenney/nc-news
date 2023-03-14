@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import Likes from "./Likes";
 
 function ArticleCard({ article }) {
   return (
@@ -13,9 +14,9 @@ function ArticleCard({ article }) {
       ></img>
       <p>Author: {article.author}</p>
       <p>Topic: {article.topic}</p>
-      <p>Created: {article.created_at}</p>
+      <p>Created: {Date(article.created_at)}</p>
       <p>Comments: {article.comment_count}</p>
-      <button>👍 {article.votes}</button>
+      <Likes articleData={article} />
     </article>
   );
 }
