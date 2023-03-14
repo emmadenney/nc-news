@@ -14,10 +14,15 @@ export const getArticles = () => {
 };
 
 export const getArticleById = (article_id) => {
-  console.log(article_id);
   return ncNewsApi.get(`/articles/${article_id}`).then((response) => {
     const data = response.data.article;
-    console.log(data);
+    return data;
+  });
+};
+
+export const getCommentsByArticleId = (article_id) => {
+  return ncNewsApi.get(`/articles/${article_id}/comments`).then((response) => {
+    const data = response.data.comments;
     return data;
   });
 };

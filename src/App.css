@@ -73,3 +73,19 @@
 .preview-img {
   max-width: 100%;
 }
+
+.img_single_article {
+  max-width: 300px;
+}
+
+.comment-list {
+  border:solid;
+  list-style-type: none;
+  padding: 0;
+}
+
+.comment {
+  border:solid;
+  padding: 5px;
+  margin: 5px;
+}
