@@ -2,11 +2,10 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getArticleById, patchArticleVotes } from "../api";
 import { Link } from "react-router-dom";
-import CommentAdder from "./CommentAdder";
 import CommentList from "./CommentList";
 import Likes from "./Likes";
 
-function SingleArticle() {
+function SingleArticle({ loggedInUser }) {
   const { article_id } = useParams();
 
   const [articleData, setArticleData] = useState({});
@@ -38,9 +37,8 @@ function SingleArticle() {
         alt={articleData.title}
       ></img>
       <p id="body-text">{articleData.body}</p>
-      <p id="topic">Created at {articleData.created_at}</p>
-      <CommentAdder />
-      <CommentList article_id={article_id} />
+      <p id="topic">Created at {Date(articleData.created_at)}</p>
+      <CommentList article_id={article_id} loggedInUser={loggedInUser} />
     </article>
   );
 }
