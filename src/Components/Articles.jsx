@@ -1,18 +1,20 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { getArticles } from "../api";
 import ArticleCard from "./ArticleCard";
 
-function Articles() {
-  const [articles, setArticles] = useState([]);
+function Articles({ searchParams }) {
+  const [articlesByTopic, setArticlesByTopic] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [totalArticles, setTotalArticles] = useState(0);
 
   useEffect(() => {
     setIsLoading(true);
-    getArticles().then((articlesData) => {
-      setArticles(articlesData);
+    getArticles(searchParams.get("topic")).then((articlesData) => {
+      setArticlesByTopic(articlesData);
+      setTotalArticles(articlesData.length);
       setIsLoading(false);
     });
-  }, []);
+  }, [searchParams]);
 
   if (isLoading) {
     return <p>Loading articles...</p>;
@@ -20,12 +22,18 @@ function Articles() {
 
   return (
     <section>
-      <h2>Top Rated Articles</h2>
+      {searchParams.get("topic") ? (
+        <h2>Articles on {searchParams.get("topic")}</h2>
+      ) : (
+        <h2>Top Rated Articles</h2>
+      )}
+
+      <p>{totalArticles} Articles</p>
       <ul className="article-list">
-        {articles.map((article) => {
+        {articlesByTopic.map((article) => {
           return (
-            <li className="article-in-list" key={article.article_id}>
-              <ArticleCard article={article} />
+            <li key={article.article_id} className="article-in-list">
+              <ArticleCard article={article} key={article.article_id} />
             </li>
           );
         })}
