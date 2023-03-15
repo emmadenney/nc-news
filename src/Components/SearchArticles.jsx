@@ -48,9 +48,9 @@ function SearchArticles() {
   return (
     <>
       <form id="filter-form">
-        <label htmlFor="topic">Filter by topic </label>
+        <label htmlFor="filter-topics">Filter by topic </label>
         <select
-          id="topic"
+          id="filter-topics"
           value={selectedTopic}
           onChange={handleTopicSelection}
         >

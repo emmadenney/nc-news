@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  font-family:Arial, Helvetica, sans-serif
 }
 
 /* .App-logo {
@@ -61,11 +62,14 @@
   width: 250px;
   flex-grow:1;
   margin: 20px; 
-  padding: 10px;
+  padding: 15px;
+  background-color: #f3f4f5;
+  font-size: small;
+  text-align:left
 }
 
 .preview-img {
-  max-width: 80%;
+  max-width: 100%;
 }
 
 .article-page{
@@ -112,14 +116,24 @@
 }
 
 button {
-  background-color: #85c1c3;
-  border-radius: 50px;
+  background-color: #ffffff;
   padding: 8px;
   margin: 5px;
-  border-style: none;
+  border-left: #2e3132;
+  border-top: none;
 }
 
-#article-like {
+.like-button {
+  float:right;
+  background-color: #85c1c3;
+  border-radius: 100%;
+  border-style: none;
+  padding: 8px;
+  margin: 5px;
+
+}
+
+#float-right {
   float:right;
 }
 
@@ -127,4 +141,37 @@ button {
   width: 50vw;
   padding: 10px;
   margin: 5px;
+}
+
+#filter-form {
+  background-color: #f3f4f5;
+  padding: 20px;
+}
+
+#filter-topics {
+  padding: 5px;
+  margin: 10px;
+}
+
+#sort-by {
+  padding: 5px;
+  margin: 10px;
+}
+
+#order {
+  padding: 5px;
+  margin: 10px;
+}
+
+h2 {
+  color: #36506f;
+  text-align: center;
+}
+
+h3 {
+  color:#2e3132;
+}
+
+.form-input {
+  padding: 10px;
 }

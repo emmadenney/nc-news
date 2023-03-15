@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getArticleById, patchArticleVotes } from "../api";
+import { getArticleById } from "../api";
 import { Link } from "react-router-dom";
 import CommentList from "./CommentList";
 import Likes from "./Likes";
