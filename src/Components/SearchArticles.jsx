@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { getTopics } from "../api";
 import Articles from "./Articles";
-import { Link } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 function SearchArticles() {
-  const [topics, setTopics] = useState([]);
-  const [selectedTopic, setSelectedTopic] = useState("Show all");
   const [isLoading, setIsLoading] = useState(true);
+  const [topics, setTopics] = useState([]);
+  const [selectedTopic, setSelectedTopic] = useState("show all");
+  const [searchParams, setSearchParams] = useSearchParams({});
 
   useEffect(() => {
     setIsLoading(true);
@@ -14,17 +15,23 @@ function SearchArticles() {
       setTopics(topicsData);
       setIsLoading(false);
     });
+    // if (searchParams.get("topic")) {
+    //   setSelectedTopic(searchParams.get("topic"));
+    // }
   }, []);
 
   const handleChange = (event) => {
+    if (event.target.value === "show-all") {
+      setSearchParams({});
+    } else {
+      setSearchParams({ topic: event.target.value });
+    }
     setSelectedTopic(event.target.value);
   };
 
   if (isLoading) {
     return <p>Loading...</p>;
   }
-
-  console.log(topics);
 
   return (
     <>
@@ -35,21 +42,17 @@ function SearchArticles() {
           value={selectedTopic}
           onChange={handleChange}
         >
-          <Link to="/articles">
-            <option>Show all</option>
-          </Link>
+          <option value="show-all">show all</option>
           {topics.map((topic) => {
             return (
-              <Link to={`/articles?topic=${topic}`} key={topic.slug}>
-                <option>{topic.slug}</option>
-              </Link>
+              <option value={topic.slug} key={topic.slug}>
+                {topic.slug}
+              </option>
             );
           })}
-          {/* ^^ this doesn't seem to work (wrapping a link around a dropdown option) so might need to investigate that or just use selectedTopic state to determine which articles are showing and then create those pages as routes in app somehow? */}
         </select>
       </form>
-      {selectedTopic === "Show all" ? <Articles /> : null}
-      {/* ^^ will this render articles twice because of rendering on Home too? */}
+      <Articles searchParams={searchParams} />
     </>
   );
 }
