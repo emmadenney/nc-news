@@ -8,6 +8,8 @@ function SearchArticles() {
   const [topics, setTopics] = useState([]);
   const [selectedTopic, setSelectedTopic] = useState("show all");
   const [searchParams, setSearchParams] = useSearchParams({});
+  const [selectedSortBy, setSelectedSortBy] = useState("votes");
+  const [selectedOrder, setSelectedOrder] = useState("DESC");
 
   useEffect(() => {
     setIsLoading(true);
@@ -20,7 +22,7 @@ function SearchArticles() {
     // }
   }, []);
 
-  const handleChange = (event) => {
+  const handleTopicSelection = (event) => {
     if (event.target.value === "show-all") {
       setSearchParams({});
     } else {
@@ -29,6 +31,16 @@ function SearchArticles() {
     setSelectedTopic(event.target.value);
   };
 
+  const handleSortBySelection = (event) => {
+    setSelectedSortBy(event.target.value);
+  };
+
+  const handleOrderSelection = (event) => {
+    setSelectedOrder(event.target.value);
+  };
+
+  // problem seems to be that searchParams can't take more than one key value pair and/or overwrites it each time it is set
+
   if (isLoading) {
     return <p>Loading...</p>;
   }
@@ -36,11 +48,11 @@ function SearchArticles() {
   return (
     <>
       <form id="filter-form">
-        <label htmlFor="filter-topics">Filter by topic </label>
+        <label htmlFor="topic">Filter by topic </label>
         <select
-          id="filter-topics"
+          id="topic"
           value={selectedTopic}
-          onChange={handleChange}
+          onChange={handleTopicSelection}
         >
           <option value="show-all">show all</option>
           {topics.map((topic) => {
@@ -51,8 +63,31 @@ function SearchArticles() {
             );
           })}
         </select>
+        <label htmlFor="sort-by">Sort by</label>
+        <select
+          id="sort-by"
+          value={selectedSortBy}
+          onChange={handleSortBySelection}
+        >
+          <option value="votes">popularity</option>
+          <option value="comment_count">most comments</option>
+          <option value="created_at">most recent</option>
+        </select>
+        <label htmlFor="order">Order by</label>
+        <select
+          id="order"
+          value={selectedOrder}
+          onChange={handleOrderSelection}
+        >
+          <option value="DESC">descending</option>
+          <option value="ASC">ascending</option>
+        </select>
       </form>
-      <Articles searchParams={searchParams} />
+      <Articles
+        searchParams={searchParams}
+        selectedSortBy={selectedSortBy}
+        selectedOrder={selectedOrder}
+      />
     </>
   );
 }
