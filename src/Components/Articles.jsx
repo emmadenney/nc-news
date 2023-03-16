@@ -2,19 +2,25 @@ import { useState, useEffect } from "react";
 import { getArticles } from "../api";
 import ArticleCard from "./ArticleCard";
 
-function Articles({ searchParams }) {
+function Articles({ searchParams, selectedSortBy, selectedOrder }) {
   const [articlesByTopic, setArticlesByTopic] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [totalArticles, setTotalArticles] = useState(0);
 
   useEffect(() => {
     setIsLoading(true);
-    getArticles(searchParams.get("topic")).then((articlesData) => {
-      setArticlesByTopic(articlesData);
-      setTotalArticles(articlesData.length);
-      setIsLoading(false);
-    });
-  }, [searchParams]);
+    getArticles(searchParams.get("topic"), selectedSortBy, selectedOrder).then(
+      (articlesData) => {
+        setArticlesByTopic(articlesData);
+        setTotalArticles(articlesData.length);
+        setIsLoading(false);
+      }
+    );
+  }, [
+    searchParams.get("topic"),
+    searchParams.get("sort_by"),
+    searchParams.get("order"),
+  ]);
 
   if (isLoading) {
     return <p>Loading articles...</p>;
