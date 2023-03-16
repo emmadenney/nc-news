@@ -17,7 +17,6 @@ function CommentAdder({ article_id, loggedInUser, setComments }) {
     setDisabledStatus(true);
     postComment(article_id, { username: loggedInUser, body: newComment })
       .then((newCommentResponse) => {
-        console.log(newCommentResponse);
         setComments((currComments) => {
           return [newCommentResponse, ...currComments];
         });

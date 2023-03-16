@@ -61,3 +61,9 @@ export const getUsers = () => {
     return data.users;
   });
 };
+
+export const deleteComment = (comment_id) => {
+  return ncNewsApi.delete(`/comments/${comment_id}`).then(() => {
+    console.log("deleted!");
+  });
+};
