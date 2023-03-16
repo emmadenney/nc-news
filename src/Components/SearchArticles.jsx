@@ -7,39 +7,40 @@ function SearchArticles() {
   const [isLoading, setIsLoading] = useState(true);
   const [topics, setTopics] = useState([]);
   const [selectedTopic, setSelectedTopic] = useState("show all");
-  const [searchParams, setSearchParams] = useSearchParams({});
   const [selectedSortBy, setSelectedSortBy] = useState("votes");
   const [selectedOrder, setSelectedOrder] = useState("DESC");
+  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     setIsLoading(true);
     getTopics().then((topicsData) => {
       setTopics(topicsData);
       setIsLoading(false);
+      searchParams.set("sort_by", "votes");
+      searchParams.set("order", "DESC");
     });
-    // if (searchParams.get("topic")) {
-    //   setSelectedTopic(searchParams.get("topic"));
-    // }
+    if (searchParams.get("topic")) {
+      setSelectedTopic(searchParams.get("topic"));
+    }
   }, []);
 
   const handleTopicSelection = (event) => {
-    if (event.target.value === "show-all") {
-      setSearchParams({});
-    } else {
-      setSearchParams({ topic: event.target.value });
-    }
     setSelectedTopic(event.target.value);
+    if (event.target.value === "show-all") {
+      searchParams.delete("topic");
+    } else {
+      searchParams.set("topic", event.target.value);
+    }
   };
 
   const handleSortBySelection = (event) => {
-    setSelectedSortBy(event.target.value);
+    const value = event.target.value;
+    const selections = value.split(" ");
+    setSelectedSortBy(selections[0]);
+    setSelectedOrder(selections[1]);
+    searchParams.set("sort_by", selections[0]);
+    searchParams.set("order", selections[1]);
   };
-
-  const handleOrderSelection = (event) => {
-    setSelectedOrder(event.target.value);
-  };
-
-  // problem seems to be that searchParams can't take more than one key value pair and/or overwrites it each time it is set
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -69,18 +70,12 @@ function SearchArticles() {
           value={selectedSortBy}
           onChange={handleSortBySelection}
         >
-          <option value="votes">popularity</option>
-          <option value="comment_count">most comments</option>
-          <option value="created_at">most recent</option>
-        </select>
-        <label htmlFor="order">Order by</label>
-        <select
-          id="order"
-          value={selectedOrder}
-          onChange={handleOrderSelection}
-        >
-          <option value="DESC">descending</option>
-          <option value="ASC">ascending</option>
+          <option value="votes DESC">most popular</option>
+          <option value="votes ASC">least popular</option>
+          <option value="created_at DESC">most recent</option>
+          <option value="created_at ASC">oldest</option>
+          <option value="comment_count DESC">most comments</option>
+          <option value="comment_count DESC">least comments</option>
         </select>
       </form>
       <Articles
