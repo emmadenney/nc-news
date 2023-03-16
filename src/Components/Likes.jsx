@@ -31,19 +31,19 @@ function Likes({ articleData }) {
     <section>
       <button
         type="button"
-        id="article-like"
+        className="like-button"
         onClick={() => downVote(article_id, -1)}
       >
         👎
       </button>
       <button
         type="button"
-        id="article-like"
+        className="like-button"
         onClick={() => upVote(article_id, 1)}
       >
         👍
       </button>
-      <p id="article-like">❤️{votes} </p>
+      <p id="float-right">❤️{votes} </p>
     </section>
   );
 }

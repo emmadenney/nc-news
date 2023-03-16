@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Likes from "./Likes";
+import moment from "moment";
 
 function ArticleCard({ article }) {
   return (
@@ -7,16 +8,23 @@ function ArticleCard({ article }) {
       <Link to={`/articles/${article.article_id}`}>
         <h3 id="article-header">{article.title}</h3>
       </Link>
-      <img
-        className="preview-img"
-        src={article.article_img_url}
-        alt={article.title}
-      ></img>
-      <p>Author: {article.author}</p>
-      <p>Topic: {article.topic}</p>
-      <p>Created: {Date(article.created_at)}</p>
-      <p>Comments: {article.comment_count}</p>
+      <Link to={`/articles/${article.article_id}`}>
+        <img
+          className="preview-img"
+          src={article.article_img_url}
+          alt={article.title}
+        ></img>
+      </Link>
+      <p>
+        Author: <Link>{article.author}</Link>
+      </p>
+      <p>
+        Topic:{" "}
+        <Link to={`/articles?topic=${article.topic}`}>{article.topic}</Link>
+      </p>
+      <p>Created: {moment(article.created_at).fromNow()}</p>
       <Likes articleData={article} />
+      <p id="comments-preview">Comments: {article.comment_count}</p>
     </article>
   );
 }
