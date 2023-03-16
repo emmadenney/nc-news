@@ -5,13 +5,15 @@ import Home from "./Components/Home";
 import Nav from "./Components/Nav";
 import SingleArticle from "./Components/SingleArticle";
 import { useState } from "react";
+import Users from "./Components/Users";
+import SingleUser from "./Components/SingleUser";
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState("grumpy19");
 
   return (
     <div className="App">
-      <Header />
+      <Header loggedInUser={loggedInUser} />
       <Nav />
       <Routes>
         <Route path="/" element={<Home />}></Route>
@@ -19,6 +21,24 @@ function App() {
         <Route
           path="/articles/:article_id"
           element={<SingleArticle loggedInUser={loggedInUser} />}
+        ></Route>
+        <Route
+          path="/users"
+          element={
+            <Users
+              loggedInUser={loggedInUser}
+              setLoggedInUser={setLoggedInUser}
+            />
+          }
+        ></Route>
+        <Route
+          path="/users/:username"
+          element={
+            <SingleUser
+              loggedInUser={loggedInUser}
+              setLoggedInUser={setLoggedInUser}
+            />
+          }
         ></Route>
       </Routes>
     </div>

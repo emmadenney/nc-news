@@ -128,3 +128,11 @@ button {
   padding: 10px;
   margin: 5px;
 }
+
+.preview-profile-img {
+  max-height: 200px;
+  max-width: 80%;
+  /* border-radius: 100%;
+  border:solid; */
+  /* padding: 15px; */
+}
