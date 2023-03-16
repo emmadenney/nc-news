@@ -10,17 +10,29 @@ function SingleArticle({ loggedInUser }) {
 
   const [articleData, setArticleData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [err, setErr] = useState(null);
 
   useEffect(() => {
     setIsLoading(true);
-    getArticleById(article_id).then((article) => {
-      setArticleData(article);
-      setIsLoading(false);
-    });
+    setErr(null);
+    getArticleById(article_id)
+      .then((article) => {
+        setArticleData(article);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        const msg = err.response.data.msg;
+        setErr(msg);
+        setIsLoading(false);
+      });
   }, [article_id]);
 
   if (isLoading) {
     return <p>Loading...</p>;
+  }
+
+  if (err) {
+    return <p>{err}</p>;
   }
 
   return (
