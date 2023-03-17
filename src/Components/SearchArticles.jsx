@@ -6,7 +6,7 @@ import { useSearchParams } from "react-router-dom";
 function SearchArticles() {
   const [isLoading, setIsLoading] = useState(true);
   const [topics, setTopics] = useState([]);
-  const [selectedTopic, setSelectedTopic] = useState("show all");
+  const [setSelectedTopic] = useState("show all");
   const [selectedSortBy, setSelectedSortBy] = useState("votes");
   const [selectedOrder, setSelectedOrder] = useState("DESC");
   const [searchParams, setSearchParams] = useSearchParams({});
@@ -55,12 +55,12 @@ function SearchArticles() {
         setErr("404 page not found!");
       }
     }
-  }, []);
+  }, [searchParams, setSelectedTopic]);
 
   // listens for any changes in params state and then updates searchParams
   useEffect(() => {
     setSearchParams(params);
-  }, [params]);
+  }, [params, setSearchParams]);
 
   // runs once (because no dependancies) to check for any searchParams in the url and set them in params state (because params is used to update searchParams if any filters change later and we want to maintain any currParams)
   useEffect(() => {
@@ -73,7 +73,7 @@ function SearchArticles() {
       ...(order && { order }),
     });
     // ^^ this is a shortcircuit - if the thing before '&&' evaluates to true, only then will the thing after '&&' happen. I.e. if there is a topic present in searchParams, then a key value pair of {topic: topic} will be set in params state
-  }, []);
+  }, [searchParams]);
 
   const handleTopicSelection = (event) => {
     setSelectedTopic(event.target.value);
