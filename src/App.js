@@ -6,7 +6,6 @@ import Nav from "./Components/Nav";
 import SingleArticle from "./Components/SingleArticle";
 import { useState } from "react";
 import Users from "./Components/Users";
-import SingleUser from "./Components/SingleUser";
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState("grumpy19");
@@ -26,15 +25,6 @@ function App() {
           path="/users"
           element={
             <Users
-              loggedInUser={loggedInUser}
-              setLoggedInUser={setLoggedInUser}
-            />
-          }
-        ></Route>
-        <Route
-          path="/users/:username"
-          element={
-            <SingleUser
               loggedInUser={loggedInUser}
               setLoggedInUser={setLoggedInUser}
             />

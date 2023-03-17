@@ -26,6 +26,7 @@ function CommentList({ article_id, loggedInUser }) {
         if (comment.comment_id !== commentId) {
           return comment;
         }
+        return null;
       });
       setComments(copyComments);
       setDeleteSuccess(true);
