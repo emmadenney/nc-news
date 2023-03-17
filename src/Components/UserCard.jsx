@@ -1,6 +1,4 @@
-import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import SingleUser from "./SingleUser";
 
 function UserCard({ user, loggedInUser, setLoggedInUser }) {
   const [buttonStatus, setButtonStatus] = useState(
@@ -21,16 +19,12 @@ function UserCard({ user, loggedInUser, setLoggedInUser }) {
 
   return (
     <>
-      <Link to={`/users/${user.username}`}>
-        <img
-          className="preview-profile-img"
-          src={user.avatar_url}
-          alt={`profile pic of ${user.username}`}
-        ></img>
-      </Link>
-      <Link to={`/users/${user.username}`}>
-        <h3>{user.username}</h3>
-      </Link>
+      <img
+        className="preview-profile-img"
+        src={user.avatar_url}
+        alt={`profile pic of ${user.username}`}
+      ></img>
+      <h3>{user.username}</h3>
       <button
         type="button"
         onClick={handleLogIn}

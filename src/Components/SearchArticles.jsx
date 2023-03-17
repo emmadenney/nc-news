@@ -6,10 +6,10 @@ import { useSearchParams } from "react-router-dom";
 function SearchArticles() {
   const [isLoading, setIsLoading] = useState(true);
   const [topics, setTopics] = useState([]);
-  const [setSelectedTopic] = useState("show all");
+  const [selectedTopic, setSelectedTopic] = useState("show all");
   const [selectedSortBy, setSelectedSortBy] = useState("votes");
   const [selectedOrder, setSelectedOrder] = useState("DESC");
-  const [searchParams, setSearchParams] = useSearchParams({});
+  const [searchParams, setSearchParams] = useSearchParams();
   const [params, setParams] = useState({
     sort_by: "votes",
     order: "DESC",
@@ -55,7 +55,7 @@ function SearchArticles() {
         setErr("404 page not found!");
       }
     }
-  }, [searchParams, setSelectedTopic]);
+  }, [searchParams]);
 
   // listens for any changes in params state and then updates searchParams
   useEffect(() => {
@@ -63,17 +63,18 @@ function SearchArticles() {
   }, [params, setSearchParams]);
 
   // runs once (because no dependancies) to check for any searchParams in the url and set them in params state (because params is used to update searchParams if any filters change later and we want to maintain any currParams)
+
+  const topic = searchParams.get("topic");
+  const sort_by = searchParams.get("sort_by");
+  const order = searchParams.get("order");
   useEffect(() => {
-    const topic = searchParams.get("topic");
-    const sort_by = searchParams.get("sort_by");
-    const order = searchParams.get("order");
     setParams({
       ...(topic && { topic }),
       ...(sort_by && { sort_by }),
       ...(order && { order }),
     });
     // ^^ this is a shortcircuit - if the thing before '&&' evaluates to true, only then will the thing after '&&' happen. I.e. if there is a topic present in searchParams, then a key value pair of {topic: topic} will be set in params state
-  }, [searchParams]);
+  }, [topic, sort_by, order]);
 
   const handleTopicSelection = (event) => {
     setSelectedTopic(event.target.value);
@@ -112,13 +113,15 @@ function SearchArticles() {
     return <p>{err}</p>;
   }
 
+  console.log(selectedTopic);
+
   return (
     <>
       <form id="filter-form">
         <label htmlFor="filter-topics">Filter by topic </label>
         <select
           id="filter-topics"
-          value={params.topic || "show all"}
+          value={selectedTopic || "show all"}
           onChange={handleTopicSelection}
         >
           <option value="show-all">show all</option>

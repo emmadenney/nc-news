@@ -16,10 +16,11 @@ function Articles({ searchParams, selectedSortBy, selectedOrder }) {
         setIsLoading(false);
       }
     );
-    const topic = searchParams.get("topic");
-    const sort_by = searchParams.get("sort_by");
-    const order = searchParams.get("order");
-  }, [searchParams, selectedOrder, selectedSortBy, topic, sort_by, order]);
+  }, [
+    searchParams.get("topic"),
+    searchParams.get("sort_by"),
+    searchParams.get("order"),
+  ]);
 
   if (isLoading) {
     return <p>Loading articles...</p>;
