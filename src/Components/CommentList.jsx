@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
-import { getCommentsByArticleId } from "../api";
+import { deleteComment, getCommentsByArticleId } from "../api";
 import { Link } from "react-router-dom";
 import CommentAdder from "./CommentAdder";
+import moment from "moment";
 
 function CommentList({ article_id, loggedInUser }) {
   const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [deleteSuccess, setDeleteSuccess] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
@@ -13,7 +15,22 @@ function CommentList({ article_id, loggedInUser }) {
       setComments(commentsData);
       setIsLoading(false);
     });
-  }, [article_id]);
+  }, [article_id, deleteSuccess]);
+
+  const handleDeleteComment = (event) => {
+    event.preventDefault();
+    setDeleteSuccess(false);
+    const commentId = event.target.value;
+    deleteComment(commentId).then(() => {
+      const copyComments = comments.map((comment) => {
+        if (comment.comment_id !== commentId) {
+          return comment;
+        }
+      });
+      setComments(copyComments);
+      setDeleteSuccess(true);
+    });
+  };
 
   if (isLoading) {
     return <p>Comments loading...</p>;
@@ -27,6 +44,7 @@ function CommentList({ article_id, loggedInUser }) {
         article_id={article_id}
         setComments={setComments}
       />
+      {deleteSuccess ? <p>Comment deleted successfully</p> : null}
       {comments === undefined ? (
         <p>No comments</p>
       ) : (
@@ -35,10 +53,19 @@ function CommentList({ article_id, loggedInUser }) {
             <li className="comment" key={comment.comment_id}>
               <p>{comment.body}</p>
               <p>
-                Posted by: <Link>{comment.author}</Link>
+                Posted by <Link>{comment.author}</Link>
               </p>
-              <p>Posted at: {Date(comment.created_at)}</p>
+              <p>Posted {moment(comment.created_at).fromNow()}</p>
               <button type="button">👍 {comment.votes}</button>
+              {comment.author === loggedInUser ? (
+                <button
+                  type="submit"
+                  value={comment.comment_id}
+                  onClick={handleDeleteComment}
+                >
+                  Delete comment
+                </button>
+              ) : null}
             </li>
           );
         })

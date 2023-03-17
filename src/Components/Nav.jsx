@@ -8,9 +8,11 @@ function Nav() {
           Home
         </button>
       </Link>
-      <button type="button" className="nav-button">
-        Users
-      </button>
+      <Link to="/users">
+        <button type="button" className="nav-button">
+          Users
+        </button>
+      </Link>
       <Link to="/articles">
         <button type="button" className="nav-button">
           Articles
