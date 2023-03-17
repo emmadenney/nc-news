@@ -4,6 +4,7 @@ import { getArticleById } from "../api";
 import { Link } from "react-router-dom";
 import CommentList from "./CommentList";
 import Likes from "./Likes";
+import moment from "moment";
 
 function SingleArticle({ loggedInUser }) {
   const { article_id } = useParams();
@@ -49,7 +50,7 @@ function SingleArticle({ loggedInUser }) {
         alt={articleData.title}
       ></img>
       <p id="body-text">{articleData.body}</p>
-      <p id="topic">Created at {Date(articleData.created_at)}</p>
+      <p id="topic">Published {moment(articleData.created_at).fromNow()}</p>
       <CommentList article_id={article_id} loggedInUser={loggedInUser} />
     </article>
   );

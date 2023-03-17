@@ -175,3 +175,13 @@ h3 {
 .form-input {
   padding: 10px;
 }
+
+.preview-profile-img {
+  background-color: white;
+  max-height: 200px;
+  max-width: 80%;
+  border-radius: 100%;
+  border:solid;
+  padding: 15px;
+}
+

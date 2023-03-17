@@ -55,3 +55,15 @@ export const getTopics = () => {
     return data;
   });
 };
+
+export const getUsers = () => {
+  return ncNewsApi.get("/users").then(({ data }) => {
+    return data.users;
+  });
+};
+
+export const deleteComment = (comment_id) => {
+  return ncNewsApi.delete(`/comments/${comment_id}`).then(() => {
+    console.log("deleted!");
+  });
+};
