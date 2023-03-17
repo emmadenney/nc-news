@@ -63,7 +63,6 @@ function SearchArticles() {
   }, [params, setSearchParams]);
 
   // runs once (because no dependancies) to check for any searchParams in the url and set them in params state (because params is used to update searchParams if any filters change later and we want to maintain any currParams)
-
   const topic = searchParams.get("topic");
   const sort_by = searchParams.get("sort_by");
   const order = searchParams.get("order");
