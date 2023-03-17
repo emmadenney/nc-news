@@ -14,6 +14,7 @@ function SearchArticles() {
     sort_by: "votes",
     order: "DESC",
   });
+  const [err, setErr] = useState(null);
 
   useEffect(() => {
     setIsLoading(true);
@@ -23,13 +24,36 @@ function SearchArticles() {
     });
     // to set the filter dropdowns to be the same as anything searched/copy&pasted into the url
     if (searchParams.get("topic")) {
-      setSelectedTopic(searchParams.get("topic"));
+      if (
+        searchParams.get("topic") === "football" ||
+        searchParams.get("topic") === "cooking" ||
+        searchParams.get("topic") === "coding"
+      ) {
+        setSelectedTopic(searchParams.get("topic"));
+      } else {
+        setErr("Topic not found!");
+      }
     }
+    // ^^ NOT SURE HOW TO ITERATE THROUGH AN ARRAY IN STATE TO CHECK IF IT INCLUDES SOMETHING, SO HAD TO BE EXPLICIT HERE
     if (searchParams.get("sort_by")) {
-      setSelectedSortBy(searchParams.get("sort_by"));
+      if (
+        searchParams.get("sort_by") === "votes" ||
+        searchParams.get("sort_by") === "created_at"
+      ) {
+        setSelectedSortBy(searchParams.get("sort_by"));
+      } else {
+        setErr("404 page not found!");
+      }
     }
     if (searchParams.get("order")) {
-      setSelectedOrder(searchParams.get("order"));
+      if (
+        searchParams.get("order") === "ASC" ||
+        searchParams.get("order") === "DESC"
+      ) {
+        setSelectedOrder(searchParams.get("order"));
+      } else {
+        setErr("404 page not found!");
+      }
     }
   }, []);
 
@@ -82,6 +106,10 @@ function SearchArticles() {
 
   if (isLoading) {
     return <p>Loading...</p>;
+  }
+
+  if (err) {
+    return <p>{err}</p>;
   }
 
   return (

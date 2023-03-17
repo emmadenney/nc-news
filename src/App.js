@@ -40,6 +40,7 @@ function App() {
             />
           }
         ></Route>
+        <Route path="/*" element={<p>404 page not found!</p>}></Route>
       </Routes>
     </div>
   );
