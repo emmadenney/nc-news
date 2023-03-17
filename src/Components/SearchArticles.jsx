@@ -33,6 +33,9 @@ function SearchArticles() {
     }
   }, []);
 
+  console.log(selectedTopic);
+  console.log(params);
+
   // listens for any changes in params state and then updates searchParams
   useEffect(() => {
     setSearchParams(params);
