@@ -1,20 +1,71 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { getTopics } from "../api";
 import Articles from "./Articles";
 import { useSearchParams } from "react-router-dom";
 
+// functions to check if each url param is valid and evaluates to true or false
+const isValidTopic = (topic) =>
+  ["football", "cooking", "coding", "show all"].includes(topic);
+const isValidSortBy = (sort_by) => ["votes", "created_at"].includes(sort_by);
+const isValidOrder = (order) => ["ASC", "DESC"].includes(order);
+
 function SearchArticles() {
   const [isLoading, setIsLoading] = useState(true);
   const [topics, setTopics] = useState([]);
-  const [selectedTopic, setSelectedTopic] = useState("show all");
-  const [selectedSortBy, setSelectedSortBy] = useState("votes");
-  const [selectedOrder, setSelectedOrder] = useState("DESC");
   const [searchParams, setSearchParams] = useSearchParams();
-  const [params, setParams] = useState({
-    sort_by: "votes",
-    order: "DESC",
-  });
-  const [err, setErr] = useState(null);
+
+  // assigns any params from url into individual variables
+  const urlTopic = searchParams.get("topic");
+  const urlSortBy = searchParams.get("sort_by");
+  const urlOrder = searchParams.get("order");
+
+  // set initial state of dropdowns to be valid url param if there is one, if not set to default
+  const [selectedTopic, setSelectedTopic] = useState(
+    isValidTopic(urlTopic) ? urlTopic : "show all"
+  );
+  const [selectedSortBy, setSelectedSortBy] = useState(
+    isValidSortBy(urlSortBy) ? urlSortBy : "votes"
+  );
+  const [selectedOrder, setSelectedOrder] = useState(
+    isValidOrder(urlOrder) ? urlOrder : "DESC"
+  );
+
+  const err = useMemo(() => {
+    if (!isValidTopic(urlTopic) && urlTopic !== null) {
+      return "Invalid topic";
+    }
+    if (
+      (!isValidSortBy(urlSortBy) && urlSortBy !== null) ||
+      (!isValidOrder(urlOrder) && urlOrder !== null)
+    ) {
+      return "404 page not found";
+    }
+  }, [urlTopic, urlSortBy, urlOrder]);
+
+  // when dropdowns are selected, update states, and update searchParams (url)
+  useEffect(() => {
+    if (
+      !err &&
+      (selectedTopic !== urlTopic ||
+        selectedSortBy !== urlSortBy ||
+        selectedOrder !== urlOrder)
+    ) {
+      setSearchParams({
+        sort_by: selectedSortBy,
+        order: selectedOrder,
+        topic: selectedTopic,
+      });
+    }
+  }, [
+    selectedTopic,
+    selectedSortBy,
+    selectedOrder,
+    urlTopic,
+    urlOrder,
+    urlSortBy,
+    setSearchParams,
+    err,
+  ]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -22,71 +73,10 @@ function SearchArticles() {
       setTopics(topicsData);
       setIsLoading(false);
     });
-    // to set the filter dropdowns to be the same as anything searched/copy&pasted into the url
-    if (searchParams.get("topic")) {
-      if (
-        searchParams.get("topic") === "football" ||
-        searchParams.get("topic") === "cooking" ||
-        searchParams.get("topic") === "coding"
-      ) {
-        setSelectedTopic(searchParams.get("topic"));
-      } else {
-        setErr("Topic not found!");
-      }
-    }
-    // ^^ NOT SURE HOW TO ITERATE THROUGH AN ARRAY IN STATE TO CHECK IF IT INCLUDES SOMETHING, SO HAD TO BE EXPLICIT HERE
-    if (searchParams.get("sort_by")) {
-      if (
-        searchParams.get("sort_by") === "votes" ||
-        searchParams.get("sort_by") === "created_at"
-      ) {
-        setSelectedSortBy(searchParams.get("sort_by"));
-      } else {
-        setErr("404 page not found!");
-      }
-    }
-    if (searchParams.get("order")) {
-      if (
-        searchParams.get("order") === "ASC" ||
-        searchParams.get("order") === "DESC"
-      ) {
-        setSelectedOrder(searchParams.get("order"));
-      } else {
-        setErr("404 page not found!");
-      }
-    }
-  }, [searchParams]);
-
-  // listens for any changes in params state and then updates searchParams
-  useEffect(() => {
-    setSearchParams(params);
-  }, [params, setSearchParams]);
-
-  // runs once (because no dependancies) to check for any searchParams in the url and set them in params state (because params is used to update searchParams if any filters change later and we want to maintain any currParams)
-  const topic = searchParams.get("topic");
-  const sort_by = searchParams.get("sort_by");
-  const order = searchParams.get("order");
-  useEffect(() => {
-    setParams({
-      ...(topic && { topic }),
-      ...(sort_by && { sort_by }),
-      ...(order && { order }),
-    });
-    // ^^ this is a shortcircuit - if the thing before '&&' evaluates to true, only then will the thing after '&&' happen. I.e. if there is a topic present in searchParams, then a key value pair of {topic: topic} will be set in params state
-  }, [topic, sort_by, order]);
+  }, []);
 
   const handleTopicSelection = (event) => {
     setSelectedTopic(event.target.value);
-    if (event.target.value === "show-all") {
-      const copyParams = { ...params };
-      delete copyParams.topic;
-      setParams(copyParams);
-    } else {
-      setParams((currParams) => ({
-        ...currParams,
-        topic: event.target.value,
-      }));
-    }
   };
 
   const handleSortBySelection = (event) => {
@@ -94,14 +84,6 @@ function SearchArticles() {
     const selections = value.split(" ");
     setSelectedSortBy(selections[0]);
     setSelectedOrder(selections[1]);
-    setParams((currParams) => ({
-      ...currParams,
-      sort_by: selections[0],
-    }));
-    setParams((currParams) => ({
-      ...currParams,
-      order: selections[1],
-    }));
   };
 
   if (isLoading) {
@@ -112,18 +94,16 @@ function SearchArticles() {
     return <p>{err}</p>;
   }
 
-  console.log(selectedTopic);
-
   return (
     <>
       <form id="filter-form">
         <label htmlFor="filter-topics">Filter by topic </label>
         <select
           id="filter-topics"
-          value={selectedTopic || "show all"}
+          value={selectedTopic}
           onChange={handleTopicSelection}
         >
-          <option value="show-all">show all</option>
+          <option value="show all">show all</option>
           {topics.map((topic) => {
             return (
               <option value={topic.slug} key={topic.slug}>
@@ -135,7 +115,7 @@ function SearchArticles() {
         <label htmlFor="sort-by">Sort by</label>
         <select
           id="sort-by"
-          value={`${params.sort_by} ${params.order}`}
+          value={`${selectedSortBy} ${selectedOrder}`}
           onChange={handleSortBySelection}
         >
           <option value="votes DESC">most popular</option>
@@ -145,9 +125,9 @@ function SearchArticles() {
         </select>
       </form>
       <Articles
-        searchParams={searchParams}
         selectedSortBy={selectedSortBy}
         selectedOrder={selectedOrder}
+        selectedTopic={selectedTopic}
       />
     </>
   );

@@ -88,6 +88,8 @@
 
 .img_single_article {
   max-width: 100%;
+  align-content: center;
+  margin: auto;
 }
 
 #body-text {

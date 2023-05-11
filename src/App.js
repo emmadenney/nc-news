@@ -6,6 +6,7 @@ import Nav from "./Components/Nav";
 import SingleArticle from "./Components/SingleArticle";
 import { useState } from "react";
 import Users from "./Components/Users";
+import SearchArticles from "./Components/SearchArticles";
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState("grumpy19");
@@ -16,7 +17,7 @@ function App() {
       <Nav />
       <Routes>
         <Route path="/" element={<Home />}></Route>
-        <Route path="/articles" element={<Home />}></Route>
+        <Route path="/articles" element={<SearchArticles />}></Route>
         <Route
           path="/articles/:article_id"
           element={<SingleArticle loggedInUser={loggedInUser} />}

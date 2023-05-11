@@ -2,25 +2,21 @@ import { useState, useEffect } from "react";
 import { getArticles } from "../api";
 import ArticleCard from "./ArticleCard";
 
-function Articles({ searchParams, selectedSortBy, selectedOrder }) {
+function Articles({ selectedTopic, selectedSortBy, selectedOrder }) {
   const [articlesByTopic, setArticlesByTopic] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [totalArticles, setTotalArticles] = useState(0);
 
   useEffect(() => {
     setIsLoading(true);
-    getArticles(searchParams.get("topic"), selectedSortBy, selectedOrder).then(
+    getArticles(selectedTopic, selectedSortBy, selectedOrder).then(
       (articlesData) => {
         setArticlesByTopic(articlesData);
         setTotalArticles(articlesData.length);
         setIsLoading(false);
       }
     );
-  }, [
-    searchParams.get("topic"),
-    searchParams.get("sort_by"),
-    searchParams.get("order"),
-  ]);
+  }, [selectedTopic, selectedSortBy, selectedOrder]);
 
   if (isLoading) {
     return <p>Loading articles...</p>;
@@ -28,8 +24,8 @@ function Articles({ searchParams, selectedSortBy, selectedOrder }) {
 
   return (
     <section>
-      {searchParams.get("topic") ? (
-        <h2>Articles on {searchParams.get("topic")}</h2>
+      {selectedTopic !== "show all" ? (
+        <h2>Articles on {selectedTopic}</h2>
       ) : (
         <h2>Top Rated Articles</h2>
       )}
