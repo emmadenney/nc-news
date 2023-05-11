@@ -13,11 +13,6 @@ function Nav() {
           Users
         </button>
       </Link>
-      <Link to="/articles">
-        <button type="button" className="nav-button">
-          Articles
-        </button>
-      </Link>
     </nav>
   );
 }

@@ -28,7 +28,7 @@ function Users({ loggedInUser, setLoggedInUser }) {
               <UserCard
                 user={user}
                 key={user.username}
-                loggedInUser={loggedInUser}
+                isLoggedIn={loggedInUser === user.username}
                 setLoggedInUser={setLoggedInUser}
               />
             </li>

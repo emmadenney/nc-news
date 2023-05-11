@@ -8,7 +8,7 @@ export const getArticles = (topic, sort_by, order) => {
   return ncNewsApi
     .get(`/articles`, {
       params: {
-        topic,
+        ...(topic !== "show all" && { topic }),
         sort_by,
         order,
       },
