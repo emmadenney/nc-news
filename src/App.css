@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  font-family:Arial, Helvetica, sans-serif
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 /* .App-logo {
@@ -43,36 +43,35 @@
 }
 
 #loggedUser {
-  font-size:small
+  font-size: small;
 }
 
 .article-list {
   list-style-type: none;
   padding: 5px;
   display: flex;
-  flex-direction:row;
+  flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
   align-content: space-around;
-
 }
 
 .article-in-list {
   border: solid;
   width: 250px;
-  flex-grow:1;
-  margin: 20px; 
+  flex-grow: 1;
+  margin: 20px;
   padding: 15px;
   background-color: #f3f4f5;
   font-size: small;
-  text-align:left
+  text-align: left;
 }
 
 .preview-img {
   max-width: 100%;
 }
 
-.article-page{
+.article-page {
   background-color: #f5f8f4;
   padding: 20px;
   text-align: justify;
@@ -96,7 +95,7 @@
 }
 
 .comment-list {
-  border:solid;
+  border: solid;
   list-style-type: none;
   padding: 5px;
   background-color: rgb(255, 255, 255);
@@ -110,7 +109,7 @@
 }
 
 .comment {
-  border:solid;
+  border: solid;
   padding: 15px;
   margin: 5px;
 }
@@ -124,17 +123,16 @@ button {
 }
 
 .like-button {
-  float:right;
+  float: right;
   background-color: #85c1c3;
   border-radius: 100%;
   border-style: none;
   padding: 8px;
   margin: 5px;
-
 }
 
 #float-right {
-  float:right;
+  float: right;
 }
 
 #addComment {
@@ -169,7 +167,7 @@ h2 {
 }
 
 h3 {
-  color:#2e3132;
+  color: #2e3132;
 }
 
 .form-input {
@@ -181,7 +179,6 @@ h3 {
   max-height: 200px;
   max-width: 80%;
   border-radius: 100%;
-  border:solid;
+  border: solid;
   padding: 15px;
 }
-
