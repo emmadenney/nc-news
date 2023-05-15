@@ -4,14 +4,10 @@ function Nav() {
   return (
     <nav className="nav">
       <Link to="/">
-        <button type="button" className="nav-button">
-          Home
-        </button>
+        <button type="button">Home</button>
       </Link>
       <Link to="/users">
-        <button type="button" className="nav-button">
-          Users
-        </button>
+        <button type="button">Users</button>
       </Link>
     </nav>
   );

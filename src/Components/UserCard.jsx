@@ -1,12 +1,4 @@
 function UserCard({ user, isLoggedIn, setLoggedInUser }) {
-  // useEffect(() => {
-  //   if (loggedInUser === user.username) {
-  //     setButtonStatus(`Logged in as ${loggedInUser}`);
-  //   } else {
-  //     setButtonStatus(`Log in as ${user.username}`);
-  //   }
-  // }, [loggedInUser]);
-
   const handleLogIn = () => {
     setLoggedInUser(user.username);
   };

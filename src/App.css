@@ -3,17 +3,6 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* .App-logo {
-  height: 40vmin;
-  pointer-events: none;
-} */
-
-/* @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-} */
-
 .App-header {
   background-color: #85c1c3;
   padding: 20px;
@@ -28,15 +17,6 @@
 .App-link {
   color: #61dafb;
 }
-
-/* @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */
 
 .nav {
   padding: 20px;
@@ -57,6 +37,9 @@
 }
 
 .article-in-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   border: solid;
   width: 250px;
   flex-grow: 1;
@@ -64,7 +47,6 @@
   padding: 15px;
   background-color: #f3f4f5;
   font-size: small;
-  text-align: left;
 }
 
 .preview-img {
@@ -79,11 +61,11 @@
 }
 
 #by-line {
-  font-size: smaller;
+  font-size: 15px;
 }
 
 #topic {
-  font-size: x-small;
+  font-size: 14px;
 }
 
 .img_single_article {
@@ -93,7 +75,7 @@
 }
 
 #body-text {
-  font-size: small;
+  font-size: 15px;
 }
 
 .comment-list {
@@ -122,15 +104,25 @@ button {
   margin: 5px;
   border-left: #2e3132;
   border-top: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: rgb(227, 227, 227);
 }
 
 .like-button {
   float: right;
   background-color: #85c1c3;
-  border-radius: 100%;
   border-style: none;
   padding: 8px;
   margin: 5px;
+  box-shadow: 2px 2px 5px #5d898a;
+  cursor: pointer;
+}
+
+.like-button:hover {
+  background-color: #78a8a9;
 }
 
 #float-right {
@@ -180,7 +172,5 @@ h3 {
   background-color: white;
   max-height: 200px;
   max-width: 80%;
-  border-radius: 100%;
-  border: solid;
   padding: 15px;
 }
