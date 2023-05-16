@@ -6,7 +6,7 @@ function ArticleCard({ article }) {
   return (
     <article>
       <Link to={`/articles/${article.article_id}`}>
-        <h3 id="article-header">{article.title}</h3>
+        <h3>{article.title}</h3>
       </Link>
       <Link to={`/articles/${article.article_id}`}>
         <img
@@ -15,16 +15,11 @@ function ArticleCard({ article }) {
           alt={article.title}
         ></img>
       </Link>
-      <p>
-        Author: <Link>{article.author}</Link>
-      </p>
-      <p>
-        Topic:{" "}
-        <Link to={`/articles?topic=${article.topic}`}>{article.topic}</Link>
-      </p>
+      <p>Author: {article.author}</p>
+      <p>Topic: {article.topic}</p>
       <p>Created: {moment(article.created_at).fromNow()}</p>
       <Likes articleData={article} />
-      <p id="comments-preview">Comments: {article.comment_count}</p>
+      <p>Comments: {article.comment_count}</p>
     </article>
   );
 }

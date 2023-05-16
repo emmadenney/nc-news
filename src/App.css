@@ -71,8 +71,6 @@
 
 .img_single_article {
   max-width: 100%;
-  align-content: center;
-  margin: auto;
 }
 
 #body-text {
@@ -131,7 +129,7 @@ button:hover {
 }
 
 #addComment {
-  width: 50vw;
+  width: 90vw;
   padding: 10px;
   margin: 5px;
 }
@@ -174,4 +172,10 @@ h3 {
   max-height: 200px;
   max-width: 80%;
   padding: 15px;
+}
+
+.post-comment-form {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }

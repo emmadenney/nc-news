@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { deleteComment, getCommentsByArticleId } from "../api";
-import { Link } from "react-router-dom";
 import CommentAdder from "./CommentAdder";
 import moment from "moment";
 
@@ -18,7 +17,6 @@ function CommentList({ article_id, loggedInUser }) {
   }, [article_id, deleteSuccess]);
 
   const handleDeleteComment = (event) => {
-    event.preventDefault();
     setDeleteSuccess(false);
     const commentId = event.target.value;
     deleteComment(commentId).then(() => {
@@ -53,14 +51,12 @@ function CommentList({ article_id, loggedInUser }) {
           return (
             <li className="comment" key={comment.comment_id}>
               <p>{comment.body}</p>
-              <p>
-                Posted by <Link>{comment.author}</Link>
-              </p>
+              <p>Posted by {comment.author}</p>
               <p>Posted {moment(comment.created_at).fromNow()}</p>
               <button type="button">👍 {comment.votes}</button>
               {comment.author === loggedInUser ? (
                 <button
-                  type="submit"
+                  type="button"
                   value={comment.comment_id}
                   onClick={handleDeleteComment}
                 >

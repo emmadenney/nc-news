@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getArticleById } from "../api";
-import { Link } from "react-router-dom";
 import CommentList from "./CommentList";
 import Likes from "./Likes";
 import moment from "moment";
@@ -39,9 +38,7 @@ function SingleArticle({ loggedInUser }) {
   return (
     <article className="article-page">
       <h2>{articleData.title}</h2>
-      <p id="by-line">
-        by <Link>{articleData.author}</Link>
-      </p>
+      <p id="by-line">by {articleData.author}</p>
       <Likes articleData={articleData} setArticleData={setArticleData} />
       <p id="topic">Topic: {articleData.topic}</p>
       <img

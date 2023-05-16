@@ -3,7 +3,6 @@ import { getTopics } from "../api";
 import Articles from "./Articles";
 import { useSearchParams } from "react-router-dom";
 
-// functions to check if each url param is valid and evaluates to true or false
 const isValidTopic = (topic) =>
   ["football", "cooking", "coding", "show all"].includes(topic);
 const isValidSortBy = (sort_by) => ["votes", "created_at"].includes(sort_by);
@@ -14,12 +13,10 @@ function SearchArticles() {
   const [topics, setTopics] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // assigns any params from url into individual variables
   const urlTopic = searchParams.get("topic");
   const urlSortBy = searchParams.get("sort_by");
   const urlOrder = searchParams.get("order");
 
-  // set initial state of dropdowns to be valid url param if there is one, if not set to default
   const [selectedTopic, setSelectedTopic] = useState(
     isValidTopic(urlTopic) ? urlTopic : "show all"
   );
@@ -42,7 +39,6 @@ function SearchArticles() {
     }
   }, [urlTopic, urlSortBy, urlOrder]);
 
-  // when dropdowns are selected, update states, and update searchParams (url)
   useEffect(() => {
     if (
       !err &&

@@ -35,7 +35,7 @@ function Articles({ selectedTopic, selectedSortBy, selectedOrder }) {
         {articlesByTopic.map((article) => {
           return (
             <li key={article.article_id} className="article-in-list">
-              <ArticleCard article={article} key={article.article_id} />
+              <ArticleCard article={article} />
             </li>
           );
         })}
