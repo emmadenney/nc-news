@@ -50,6 +50,20 @@
   text-align: left;
 }
 
+.user-in-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: solid;
+  width: 250px;
+  flex-grow: 1;
+  margin: 20px;
+  padding: 15px;
+  background-color: #ffffff;
+  font-size: small;
+  text-align: left;
+}
+
 .preview-img {
   max-width: 100%;
 }

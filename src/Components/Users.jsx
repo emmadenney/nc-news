@@ -24,7 +24,7 @@ function Users({ loggedInUser, setLoggedInUser }) {
       <ul className="article-list">
         {users.map((user) => {
           return (
-            <li key={user.username} className="article-in-list">
+            <li key={user.username} className="user-in-list">
               <UserCard
                 user={user}
                 key={user.username}

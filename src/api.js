@@ -15,6 +15,7 @@ export const getArticles = (topic, sort_by, order) => {
     })
     .then((response) => {
       const data = response.data.articles;
+      console.log(data);
       return data;
     });
 };
