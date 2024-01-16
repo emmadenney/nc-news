@@ -64,7 +64,6 @@ function SearchArticles() {
   ]);
 
   useEffect(() => {
-    setIsLoading(true);
     getTopics().then((topicsData) => {
       setTopics(topicsData);
       setIsLoading(false);
