@@ -14,16 +14,18 @@ function UserCard({ user, isLoggedIn, setLoggedInUser }) {
         src={user.avatar_url}
         alt={`profile pic of ${user.username}`}
       ></img>
-      <h3>{user.username}</h3>
-      <button
-        type="button"
-        onClick={handleLogIn}
-        style={{
-          backgroundColor: isLoggedIn ? "#489699" : "#85c1c3",
-        }}
-      >
-        {buttonStatus}
-      </button>
+      <div className="log-in">
+        <h3>{user.username}</h3>
+        <button
+          type="button"
+          onClick={handleLogIn}
+          style={{
+            backgroundColor: isLoggedIn ? "#489699" : "#85c1c3",
+          }}
+        >
+          {buttonStatus}
+        </button>
+      </div>
     </>
   );
 }

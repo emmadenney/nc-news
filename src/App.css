@@ -51,17 +51,26 @@
 }
 
 .user-in-list {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: block;
   border: solid;
-  width: 250px;
-  flex-grow: 1;
+  width: 200px;
+  height: 300px;
   margin: 20px;
-  padding: 15px;
+  padding: 20px;
   background-color: #ffffff;
+}
+
+.preview-profile-img {
+  background-color: white;
+  max-width: 100%;
+  max-height: 60%;
+}
+
+.log-in {
+  max-height: 40%;
+  padding: 20px;
+  text-align: center;
   font-size: small;
-  text-align: left;
 }
 
 .preview-img {
@@ -179,13 +188,6 @@ h3 {
 
 .form-input {
   padding: 10px;
-}
-
-.preview-profile-img {
-  background-color: white;
-  max-height: 200px;
-  max-width: 80%;
-  padding: 15px;
 }
 
 .post-comment-form {
